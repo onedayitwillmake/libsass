@@ -19,7 +19,7 @@ enum dbg_lvl_t : uint32_t {
 #ifdef DEBUG
 
 #ifndef DEBUG_LVL
-const uint32_t debug_lvl = UINT32_MAX;
+const uint32_t debug_lvl = NONE;
 #else
 const uint32_t debug_lvl = (DEBUG_LVL);
 #endif // DEBUG_LVL

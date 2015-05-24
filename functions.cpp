@@ -1702,7 +1702,7 @@ if( CONTEXTUALIZE->parent ) {                                           \
       Listize listize(ctx);
       return result->perform(&listize);
     }
-    
+
     Signature selector_append_sig = "selector-append($selectors...)";
     BUILT_IN(selector_append)
     {
@@ -1749,7 +1749,7 @@ if( CONTEXTUALIZE->parent ) {                                           \
             Complex_Selector* parentSeqClone = (*result)[i]->cloneFully(ctx);
             Complex_Selector* childSeq = (*child)[j];
             Complex_Selector* base = childSeq->tail();
-            
+
             // Must be a simple sequence
             if( childSeq->combinator() != Complex_Selector::Combinator::ANCESTOR_OF ) {
               string msg("Can't append  `");
@@ -1759,7 +1759,7 @@ if( CONTEXTUALIZE->parent ) {                                           \
               msg += "`";
               error(msg, pstate, backtrace);
             }
-            
+
             // Cannot be a Universal selector
             Type_Selector* pType = dynamic_cast<Type_Selector*>(base->head()->first());
             if(pType && pType->name() == "*") {
@@ -1770,11 +1770,11 @@ if( CONTEXTUALIZE->parent ) {                                           \
               msg += "`";
               error(msg, pstate, backtrace);
             }
-            
+
             // MG TODO: Add check for namespace stuff
-            
+
             // append any selectors in childSeq's head
-            *(parentSeqClone->tail()->head()) += (base->head());
+            *(parentSeqClone->innermost()->head()) += (base->head());
 
             // Set parentSeqClone new tail
             parentSeqClone->innermost()->tail( base->tail() );
@@ -1815,7 +1815,7 @@ if( CONTEXTUALIZE->parent ) {                                           \
       Selector_List*  selector = ARGSEL("$selector", Selector_List, p_contextualize);
       Selector_List*  original = ARGSEL("$original", Selector_List, p_contextualize);
       Selector_List*  replacement = ARGSEL("$replacement", Selector_List, p_contextualize);
-      
+
       ExtensionSubsetMap subset_map;
       replacement->populate_extends(original, ctx, subset_map);
       
